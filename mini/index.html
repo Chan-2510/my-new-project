@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mini NetSuite operations dashboard" />
+    <title>Mini NetSuite | Operations</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <div class="brand"><span class="brand-mark">N</span><span>mini<span class="brand-accent">/</span>netsuite</span></div>
+        <p class="eyebrow">Workspace</p>
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="Overview"><span class="nav-icon">▦</span>Overview</button>
+          <button class="nav-item" data-view="Sales"><span class="nav-icon">↗</span>Sales</button>
+          <button class="nav-item" data-view="Invoices"><span class="nav-icon">▤</span>Invoices</button>
+          <button class="nav-item" data-view="Inventory"><span class="nav-icon">◫</span>Inventory</button>
+          <button class="nav-item" data-view="Customers"><span class="nav-icon">◎</span>Customers</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="support-card"><span class="status-dot"></span><div><strong>All systems good</strong><small>Last synced 2 min ago</small></div></div>
+          <button class="nav-item" data-view="Settings"><span class="nav-icon">⚙</span>Settings</button>
+          <div class="profile"><span class="avatar">AM</span><div><strong>Alex Morgan</strong><small>Administrator</small></div><span class="more">•••</span></div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="mobile-brand"><span class="brand-mark">N</span>mini/netsuite</div>
+          <div class="breadcrumb"><span>Workspace</span><b>/</b><strong id="current-view">Overview</strong></div>
+          <div class="top-actions"><button class="icon-button" aria-label="Search">⌕</button><button class="icon-button notification" aria-label="Notifications">♧<i></i></button><span class="top-avatar">AM</span></div>
+        </header>
+
+        <div id="overview-view">
+        <section class="page-intro">
+          <div><p class="eyebrow">Thursday, September 03, 2026</p><h1>Good morning, Alex<span class="accent-dot">.</span></h1><p class="muted">Here’s what’s happening across your business today.</p></div>
+          <button class="primary-button" id="new-transaction"><span>+</span> New transaction</button>
+        </section>
+
+        <section class="metric-grid" aria-label="Business metrics">
+          <article class="metric-card revenue"><div class="card-label"><span>Net revenue</span><span class="trend positive">↑ 12.8%</span></div><strong>$84,290<span class="decimal">.00</span></strong><div class="sparkline"><span style="height:28%"></span><span style="height:40%"></span><span style="height:32%"></span><span style="height:58%"></span><span style="height:45%"></span><span style="height:70%"></span><span style="height:62%"></span><span style="height:88%"></span><span style="height:76%"></span><span style="height:100%"></span></div><small>Compared to $74,720 last month</small></article>
+          <article class="metric-card"><div class="card-label"><span>Open invoices</span><span class="trend positive">↑ 4.2%</span></div><strong>24</strong><div class="metric-foot"><span class="mini-ring ring-blue"></span><span>$19,430 outstanding</span></div><small>7 due this week</small></article>
+          <article class="metric-card"><div class="card-label"><span>Inventory value</span><span class="trend negative">↓ 2.1%</span></div><strong>$126,840<span class="decimal">.50</span></strong><div class="stock-bar"><span></span></div><div class="metric-foot"><span>412 total items</span><b>18 low stock</b></div></article>
+          <article class="metric-card"><div class="card-label"><span>New customers</span><span class="trend positive">↑ 8.6%</span></div><strong>38</strong><div class="customer-avatars"><span>JT</span><span>SK</span><span>MC</span><span>+35</span></div><small>Since the start of this month</small></article>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel sales-panel"><div class="panel-heading"><div><p class="eyebrow">Performance</p><h2>Revenue overview</h2></div><select aria-label="Revenue period"><option>Last 7 months</option><option>Last 30 days</option></select></div><div class="chart-summary"><strong>$584,210</strong><span class="trend positive">↑ 18.4%</span><small>vs. previous period</small></div><div class="chart" aria-label="Revenue line chart"><div class="chart-grid"><span>$100k</span><span>$75k</span><span>$50k</span><span>$25k</span><span>$0</span></div><svg viewBox="0 0 700 220" preserveAspectRatio="none" role="img" aria-label="Revenue rises from April through October"><defs><linearGradient id="area" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#d8efe9" stop-opacity=".8"/><stop offset="1" stop-color="#d8efe9" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0 174 C60 160 80 162 120 145 S190 152 230 124 S295 136 345 108 S405 106 460 82 S525 92 570 55 S635 66 700 20 V220 H0Z"/><path class="line" d="M0 174 C60 160 80 162 120 145 S190 152 230 124 S295 136 345 108 S405 106 460 82 S525 92 570 55 S635 66 700 20"/></svg><div class="chart-labels"><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span></div></div></article>
+          <article class="panel activity-panel"><div class="panel-heading"><div><p class="eyebrow">Live feed</p><h2>Recent activity</h2></div><button class="text-button">View all <span>→</span></button></div><div class="activity-list"><div class="activity-item"><span class="activity-icon teal">↗</span><div><strong>Payment received</strong><p>INV-1048 · Lumina Studio</p></div><time>+$2,400</time></div><div class="activity-item"><span class="activity-icon yellow">▤</span><div><strong>Invoice sent</strong><p>INV-1051 · Northstar Co.</p></div><time>2h ago</time></div><div class="activity-item"><span class="activity-icon blue">◎</span><div><strong>New customer added</strong><p>Marcel Chen</p></div><time>4h ago</time></div><div class="activity-item"><span class="activity-icon coral">◫</span><div><strong>Stock alert</strong><p>SKU-2204 · Canvas Tote</p></div><time class="warning">Low stock</time></div></div></article>
+        </section>
+
+        <section class="panel transactions-panel"><div class="panel-heading"><div><p class="eyebrow">Accounts receivable</p><h2>Recent transactions</h2></div><button class="text-button">View all <span>→</span></button></div><div class="table-wrap"><table><thead><tr><th>Transaction</th><th>Customer</th><th>Date</th><th>Status</th><th class="amount">Amount</th></tr></thead><tbody><tr><td><span class="transaction-id">INV-1051</span><strong>Product design retainer</strong></td><td>Northstar Co.</td><td>Sep 03, 2026</td><td><span class="pill pending">Pending</span></td><td class="amount">$5,800.00</td></tr><tr><td><span class="transaction-id">INV-1050</span><strong>Q3 marketing services</strong></td><td>Juniper & Co.</td><td>Sep 02, 2026</td><td><span class="pill paid">Paid</span></td><td class="amount">$3,250.00</td></tr><tr><td><span class="transaction-id">INV-1049</span><strong>Annual software license</strong></td><td>Vertex Labs</td><td>Sep 01, 2026</td><td><span class="pill overdue">Overdue</span></td><td class="amount">$1,890.00</td></tr></tbody></table></div></section>
+        </div>
+        <section id="module-view" class="module-view" hidden></section>
+        <footer>Mini NetSuite <span>•</span> Learning project <span>•</span> Data shown is for practice</footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status">Transaction draft started</div>
+    <script src="/src/main.js"></script>
+  </body>
+</html>
