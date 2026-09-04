@@ -22,7 +22,70 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id           Int     @id @default(autoincrement())
+  email        String  @unique
+  name         String?
+  passwordHash String?
+}
+
+model Customer {
+  id            Int           @id @default(autoincrement())
+  name          String
+  industry      String?
+  email         String?
+  lifetimeValue Decimal       @default(0) @db.Decimal(12, 2)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  opportunities Opportunity[]
+  invoices      Invoice[]
+  transactions  Transaction[]
+}
+
+model Opportunity {
+  id           Int      @id @default(autoincrement())
+  name         String
+  owner        String?
+  stage        String   @default("Discovery")
+  expectedClose DateTime?
+  value        Decimal  @default(0) @db.Decimal(12, 2)
+  customerId   Int?
+  customer     Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Invoice {
+  id         Int       @id @default(autoincrement())
+  number     String    @unique
+  issuedAt   DateTime  @default(now())
+  dueAt      DateTime
+  status     String    @default("Pending")
+  amount     Decimal   @db.Decimal(12, 2)
+  customerId Int
+  customer   Customer  @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model InventoryItem {
+  id           Int      @id @default(autoincrement())
+  sku          String   @unique
+  name         String
+  category     String?
+  onHand       Int      @default(0)
+  reorderPoint Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Transaction {
+  id         Int       @id @default(autoincrement())
+  name       String
+  date       DateTime  @default(now())
+  status     String    @default("Pending")
+  amount     Decimal   @db.Decimal(12, 2)
+  customerId Int?
+  customer   Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }

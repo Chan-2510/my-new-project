@@ -1,20 +1,20 @@
-import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { prisma } from "@/lib/prisma";
 import Dashboard from "./Dashboard";
-
-const globalForPrisma = globalThis as typeof globalThis & { prisma?: PrismaClient };
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
-export const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter, log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"] });
-
-if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
 
 export default async function DashboardPage({ initialView }: { initialView: string }) {
   const session = await auth();
+  if (!session) redirect("/login");
   const users = await prisma.user.findMany({ orderBy: { id: "asc" } });
+  const [transactions, opportunities, invoices, inventoryItems, customers] = await Promise.all([
+    prisma.transaction.findMany({ include: { customer: true }, orderBy: { createdAt: "desc" } }),
+    prisma.opportunity.findMany({ include: { customer: true }, orderBy: { createdAt: "desc" } }),
+    prisma.invoice.findMany({ include: { customer: true }, orderBy: { createdAt: "desc" } }),
+    prisma.inventoryItem.findMany({ orderBy: { createdAt: "desc" } }),
+    prisma.customer.findMany({ orderBy: { createdAt: "desc" } }),
+  ]);
   async function onSignIn() { "use server"; redirect("/api/auth/signin"); }
-  async function onSignOut() { "use server"; redirect("/api/auth/signout"); }
 
-  return <Dashboard initialView={initialView} users={users} signedInEmail={session?.user?.email} onSignIn={onSignIn} onSignOut={onSignOut} />;
+  return <Dashboard initialView={initialView} users={users} signedInName={session?.user?.name} signedInEmail={session?.user?.email} onSignIn={onSignIn} records={{ transactions, opportunities, invoices, inventoryItems, customers }} />;
 }
